@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ThemeProvider } from "styled-components";
-import Home from "./components/home";
+import MainHeader from "./components/Header/MainHeader";
+import Home from "./pages/home";
 import GlobalStyle from "./theme/globalStyles";
 import { lightMode, darkMode } from "./theme/theme";
 
@@ -13,7 +14,8 @@ function App() {
         <button onClick={() => setMode((prev) => !prev)}>
           {isLightMode ? "라이트" : "다크"}
         </button>
-        <Home>hello</Home>
+        <MainHeader />
+        <Home />
       </div>
     </ThemeProvider>
   );
