@@ -1,11 +1,9 @@
 export const lightMode = {
-  body: "#F8F9FD",
-  text: "#161617",
-  background: "#161617",
+  body: "var(--background-lightmode)",
+  text: "var(--black)",
 };
 
 export const darkMode = {
-  body: "#242629",
-  text: "#fafafa",
-  background: "#f8f9fd",
+  body: "var(--background-darkmode)",
+  text: "var(--white)",
 };
