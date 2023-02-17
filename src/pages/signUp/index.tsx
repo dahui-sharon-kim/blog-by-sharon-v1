@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SignUp } from "../../components/Modal/Modal";
+import { SignUp } from "../../components/Modal/CommonModal";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import { useMutation } from "react-query";
@@ -36,7 +36,6 @@ export default function SignUpPage() {
   function createAccount(username: string, password: string) {
     createUserWithEmailAndPassword(auth, username, password)
        .then(userCredential => {
-         //  signed in
          const user = userCredential.user
          console.log(user)
          alert(`계정 생성 완료`)
@@ -52,7 +51,7 @@ export default function SignUpPage() {
   return (
     <SignUp
       submitAvailable={submitAvailable}
-      onSubmit={() => createAccount(userName, password)}
+      handleSubmit={() => createAccount(userName, password)}
       userName={userName}
       name={name}
       password={password}

@@ -50,6 +50,13 @@ const GlobalStyle = createGlobalStyle`
 
     --shadow1: 0 0 14px 0 rgb(0 0 0 / 10%);
 
+    --gradient1: linear-gradient(#ee9ca7, #ffdde1);
+    --gradient2: linear-gradient(#f8b500, #fceabb);
+    --gradient3: linear-gradient(#b0dab9, #ceda99);
+    --gradient4: linear-gradient(#4ca1af, #c4e0e5);
+    --gradient5: linear-gradient(#b993d6, #8ca6db);
+    --gradient6: linear-gradient(#757f9a, #d7dde8);
+
     --border-radius1: 3px;
     --border-radius2: 6px;
     --border-radius3: 10px;
@@ -65,6 +72,7 @@ const GlobalStyle = createGlobalStyle`
     user-select: none;
   }
   h1 {
+    font-size: 1.6rem;
     font-weight: 900;
   }
   h2 {
