@@ -8,27 +8,6 @@ export interface User {
   password: string;
 }
 
-const signIn = async (email: string, password: string) => {
-  const response = await signInWithEmailAndPassword(auth, email, password)
-    .then(userCredential => {
-      console.log(userCredential);
-      const user = userCredential.user;
-    })
-    .catch(error => {
-      if (error.code === "email-already-in-use") {
-        console.log("이미 사용 중인 이메일입니다")
-      } else (
-        console.log("알 수 없는 오류입니다")
-      )
-    })
-  return response;
-};
-
-interface Modal {
-  isOpen: boolean;
-  handleClose: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
 export default function MyPage() {
   const [displayName, setDisplayName] = useState("");
   function updateUserProfile(displayName: string) {
