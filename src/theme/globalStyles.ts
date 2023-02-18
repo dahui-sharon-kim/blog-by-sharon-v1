@@ -72,7 +72,7 @@ const GlobalStyle = createGlobalStyle`
     user-select: none;
   }
   h1 {
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     font-weight: 900;
   }
   h2 {
