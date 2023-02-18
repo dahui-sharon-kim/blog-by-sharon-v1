@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { auth, db } from "../../firebase/firebaseConfig";
 import { useAuthUser } from "@react-query-firebase/auth"
 import { useDatabaseSnapshot } from "@react-query-firebase/database"
-import DiaryPreview, { Divider} from "../../components/Diary/DiaryPreview";
+import DiaryPreview, { Divider } from "../../components/Diary/DiaryPreview";
 import { ref, onValue } from "firebase/database";
 import Toggle from "../../components/Button/toggle";
 
@@ -15,18 +15,40 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 100px auto 100px;
   grid-template-rows: 300px auto 100px;
-  row-gap: 30px;
+  row-gap: 60px;
 `;
 
 const FirstRowContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   grid-column: 2 / 3;
   grid-row: 1 / 2;
+  padding-bottom: 30px;
+  border-bottom: 1px solid ${props => props.theme.text};
+  h1 {
+    margin-bottom: 10px;
+  }
+  span {
+    color: var(--blue5)
+  }
 `
-const SecondRowContainer = styled.ul`
+const SecondRowContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  & > h2 {
+    margin-bottom: 10px;
+  }
+  h3 {
+    color: ${props => props.theme.textGray}
+  }
+`
+const DiaryPreviewContainer = styled.ul`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -44,6 +66,14 @@ const SecondRowContainer = styled.ul`
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
   }
+`
+
+const RowContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
 `
 
 export default function Home () {
@@ -75,7 +105,7 @@ export default function Home () {
 
   const diaryMockDataSnapshot = diaryMockData.data;
 
-  console.log('diaryMockDataSnapshot', diaryMockData);
+  console.log('diaryMockDataSnapshot', boardTestRef);
 
   function getDiary(uid: string) {
     const boardRef = ref(db, 'board/' + uid);
@@ -98,23 +128,37 @@ export default function Home () {
     <Wrapper>
       <FirstRowContainer>
         { user.data ?
-          <h1> 안녕하세요, {user.data.displayName} 님 </h1>
-          : <h1> 로그인 후 모든 기능을 즐겨보세요! </h1>
+          <>
+            <h1>안녕하세요, {user.data.displayName} 님!</h1>
+            <h1>오늘도 <span>Good Dayz</span>에 당신의 이야기를 들려주세요.</h1>
+          </>
+          : 
+          <>
+            <h1>안녕하세요.</h1>
+            <h1>나만의 무드를 표현하는 일기앱 <span>Good Dayz</span> 입니다</h1>
+            <h1>로그인 후 모든 기능을 즐겨보세요!</h1>
+          </>
         }
-      {isPreviewMoodShown? 'Show Mood' : 'Hide Mood'}
-      <Toggle checked={isPreviewMoodShown} onChange={() => showPreviewMood(prev => !prev)} />
       </FirstRowContainer>
       <SecondRowContainer>
-        {mockDiaryData.map((diary, index) => 
-          <DiaryPreview background={`var(--gradient${index+1})`} grayscale={isPreviewMoodShown}>
-            <h1>{diary.title}</h1>
-            <p style={{ fontSize: "0.8rem", marginTop: "10px", textAlign: "right" }}>
-              {new Date(diary.date).getFullYear()}-{new Date().getMonth()+1}-{new Date().getDate()}
-            </p>
-            <Divider />
-            <p>{diary.content}</p>
-          </DiaryPreview>
-        )}
+        <h2>주간 다이어리 미리보기</h2>
+        <RowContainer>
+          <h3 style={{ width: 125 }}>{isPreviewMoodShown? 'Show Mood' : 'Hide Mood'}</h3>
+          <Toggle checked={isPreviewMoodShown} onChange={() => showPreviewMood(prev => !prev)} />
+        </RowContainer>
+        <DiaryPreviewContainer>
+          {mockDiaryData.map((diary, index) => 
+            <DiaryPreview background={`var(--gradient${index+1})`} grayscale={isPreviewMoodShown}>
+              <h2>{diary.title}</h2>
+              <p style={{ fontSize: "0.8rem", marginTop: "10px", textAlign: "right" }}>
+                {new Date(diary.date).getFullYear()}-{new Date().getMonth()+1}-{new Date().getDate()}
+                {/* TODO: date는 유틸 함수에 넣기 */}
+              </p>
+              <Divider />
+              <p>{diary.content}</p>
+            </DiaryPreview> 
+          )}
+        </DiaryPreviewContainer>
       </SecondRowContainer>
     </Wrapper>
   );

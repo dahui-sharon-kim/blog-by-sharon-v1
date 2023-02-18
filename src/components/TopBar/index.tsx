@@ -81,7 +81,7 @@ export default function TopBar({isLightMode, setMode, handleSignInModal}: Header
         <button onClick={() => navigate('/board')}>
           <h2>일기장</h2>
         </button>
-        <button>
+        <button onClick={() => navigate('/mypage')}>
           <h2>마이페이지</h2>
         </button>
       </MiddleContainer>

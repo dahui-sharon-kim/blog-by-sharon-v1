@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { Input } from "../../components/Modal/CommonModal";
 import { auth, db } from "../../firebase/firebaseConfig";
 import { useAuthUser } from "@react-query-firebase/auth";
 import { createUserData } from "../../utils/api";
@@ -10,7 +9,7 @@ import SingleConfirmButtonModal from "../../components/Modal/SingleButtonModal";
 import { ref, onValue } from "firebase/database";
 
 const BoardWrapper = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
   background-color: ${props => props.theme.body};
   color: ${props => props.theme.text};
@@ -38,9 +37,49 @@ const RowContainer = styled.div`
   background: ${props => props.theme.bg};
   margin-bottom: 30px;
   padding: 20px;
+  h3 {
+    margin-right: 15px;
+  }
+`
+const ColumnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: ${props => props.theme.bg};
+  margin-bottom: 30px;
+  padding: 20px;
+  input {
+    width: 100%;
+    height: 45px;
+    border-bottom: 1px solid ${props => props.theme.text};
+    border-width: 0 0 1px 0;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    background-color: transparent;
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid var(--blue3);
+    }
+  }
+  textarea {
+    width: 100%;
+    height: 300px;
+    border: none;
+    font-size: 1.2rem;
+    background-color: transparent;
+    &:focus {
+      outline: none;
+    }
+  }
+  h3 {
+    margin-right: 15px;
+  }
 `
 
 export default function Board() {
+
+  // TODO: constants 폴더에 선언
 
   const OPTION_A = "optionA"
   const OPTION_B = "optionB"
@@ -55,17 +94,13 @@ export default function Board() {
   const [mood, setMood] = useState("");
   const [date, setDate] = useState(new Date());
   const [isModalOpen, setModalOpen] = useState(false);
-  const [dateString, setDateString] = useState(
-    `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`
-  )
   const [diaryData, setDiaryData] = useState([]);
 
   const user = useAuthUser(["user"], auth);
   const uid = user.data ? user.data.uid : '';
 
   function postDiary(uid: string, title: string, content: string, mood: string, date: string) {
-    createUserData('board/test/2', {title, content, mood, date})
-    // createUserData(`board/${uid}/${Date.now()}`, {title, content, mood, date})
+    createUserData(`board/${uid}/${Date.now()}`, {title, content, mood, date})
     .then(() =>
       setModalOpen(true)
     )
@@ -105,20 +140,21 @@ export default function Board() {
           <h3>오늘의 기분</h3>
           <StarRating select={mood} setSelect={setMood} options={MOODS} />
         </RowContainer>
-        <Input
-          width={500}
-          height={50}
-          value={title}
-          placeholder="제목"
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => setTitle(event.target.value)}
-        />
-        <textarea
-          value={content}
-          onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => setContent(event.target.value)}
-        />
-        <button onClick={() => postDiary(uid, title, content, mood, date.toString())}>
-          업로드 new
-        </button>
+        <ColumnContainer>
+          <input
+            value={title}
+            placeholder="제목"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setTitle(event.target.value)}
+          />
+          <textarea
+            value={content}
+            placeholder="내용"
+            onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => setContent(event.target.value)}
+          />
+          <button onClick={() => postDiary(uid, title, content, mood, date.toString())}>
+            업로드
+          </button>
+        </ColumnContainer>
         {isModalOpen &&
           <SingleConfirmButtonModal isOpen={isModalOpen} handleClose={setModalOpen}>
             <h3>일기가 저장되었습니다</h3>
