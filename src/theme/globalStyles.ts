@@ -76,15 +76,19 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 900;
   }
   h2 {
-    font-weight: 900;
+    font-size: 1.4rem;
+    font-weight: 800;
   }
   h3 {
+    font-size: 1.2rem;
     font-weight: 700;
   }
   p {
+    font-size: 1rem;
     font-weight: 400;
   }
   a {
+    font-size: 1rem;
     font-weight: 400;
   }
 `;

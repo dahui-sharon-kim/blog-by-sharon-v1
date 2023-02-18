@@ -7,7 +7,7 @@
     "@fullcalendar/daygrid": "^6.1.4",
     "@fullcalendar/react": "^6.1.4",
     "@react-query-firebase/auth": "^1.0.0-dev.2",
-    "@react-query-firebase/firestore": "^1.0.0-dev.7",
+    "@react-query-firebase/database": "^1.0.0-dev.2",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.12",
     "@types/react": "^18.0.27",

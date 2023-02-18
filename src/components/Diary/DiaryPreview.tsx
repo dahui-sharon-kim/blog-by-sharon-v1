@@ -8,9 +8,13 @@ const DiaryPreviewContainer = styled.li<{background: string, grayscale: boolean}
   padding: 20px;
   display: flex;
   flex-direction: column;
-  h1 {
-    margin-bottom: 10px;
-  }
+`
+
+export const Divider = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: ${props => props.theme.text};
+  margin: 15px 0 13px 0;
 `
 
 type DiaryProps = {

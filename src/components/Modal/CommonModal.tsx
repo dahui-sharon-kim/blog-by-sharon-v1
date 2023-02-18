@@ -215,7 +215,7 @@ export const ModalButton = styled.button<DivProps>`
   & > p {
     font-size: 13px;
   }
-  `;
+`;
 
 export const Input = styled.input<InputProps>`
   width: ${(props) => props.width ? `${props.width}px` : '100%' };

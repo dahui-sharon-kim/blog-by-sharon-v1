@@ -2,7 +2,6 @@ import styled from "styled-components";
 import DatePicker, { registerLocale } from "react-datepicker";
 import ko from "date-fns/locale/ko"
 import "react-datepicker/dist/react-datepicker.css";
-// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 registerLocale('ko', ko)
 

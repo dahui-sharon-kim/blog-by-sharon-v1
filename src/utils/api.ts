@@ -1,7 +1,7 @@
-import { set, ref } from "firebase/database";
+import { ref, update, onValue } from "firebase/database";
 import { db } from "../firebase/firebaseConfig";
 
 export async function createUserData(location: string, payload: object) {
-  const response = await set(ref(db, location), payload)
+  const response = await update(ref(db, location), payload)
   return response;
 }

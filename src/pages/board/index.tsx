@@ -14,43 +14,41 @@ const BoardWrapper = styled.div`
   display: grid;
   background-color: ${props => props.theme.body};
   color: ${props => props.theme.text};
-  grid-template-rows:
-    [row-start] 30px [row1] 100px [row2] 30px [row3] auto [row4] 30px [row5] 100px [row-end];
-  /* grid-template-columns: [column-start] 30px  [column1] auto [column2] 30px [column-end]; */
-  padding: 30px;
+  grid-template-rows: 100px auto 100px;
+  gap: 30px;
+  padding: 100px;
 `
 
 const FirstRow = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  grid-row-start: row1;
-  grid-row-end: row2;
-  grid-column-start: column1;
-  grid-column-end: column2;
+  grid-row: 1 / 2;
 `
 const MiddleRow = styled.div`
   display: flex;
   flex-direction: column;
-  grid-row-start: row3;
-  grid-row-end: row4;
-  grid-column-start: column1;
-  grid-column-end: column2;
+  grid-row: 2 / 3;
 `
 const RowContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  background: ${props => props.theme.bg};
+  margin-bottom: 30px;
+  padding: 20px;
 `
 
 export default function Board() {
-  const OPTION_A = "optionA";
-  const OPTION_B = "optionB";
-  const OPTION_C = "optionC";
-  const OPTION_D = "optionD";
-  const OPTION_E = "optionE";
-  const MOODS = [OPTION_A, OPTION_B, OPTION_C, OPTION_D, OPTION_E];
+
+  const OPTION_A = "optionA"
+  const OPTION_B = "optionB"
+  const OPTION_C = "optionC"
+  const OPTION_D = "optionD"
+  const OPTION_E = "optionE"
+  const OPTION_F = "optionF"
+  const MOODS = ["optionA","optionB", "optionC","optionD","optionE", "optionF"] 
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -60,24 +58,25 @@ export default function Board() {
   const [dateString, setDateString] = useState(
     `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`
   )
-  const [diaryData, setDiaryDate] = useState([]);
+  const [diaryData, setDiaryData] = useState([]);
 
   const user = useAuthUser(["user"], auth);
   const uid = user.data ? user.data.uid : '';
-  
+
   function postDiary(uid: string, title: string, content: string, mood: string, date: string) {
-    createUserData(`board/${uid}/${Date.now()}`, {title, content, mood, date})
+    createUserData('board/test/2', {title, content, mood, date})
+    // createUserData(`board/${uid}/${Date.now()}`, {title, content, mood, date})
     .then(() =>
       setModalOpen(true)
     )
     .catch(error => console.log(error))
   }
-  
+
   function getDiary(uid: string) {
     const boardRef = ref(db, 'board/' + uid);
     onValue(boardRef, (snapshot) => {
       const data = snapshot.val();
-      setDiaryDate(data);
+      setDiaryData(data);
     }
     );
   }
