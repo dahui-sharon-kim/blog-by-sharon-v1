@@ -11,7 +11,7 @@ Good Dayz 일기장에서 나의 무드를 색깔로 표현해보세요.
 ## Installation
 
 ```
-npm install good-dayz-diary --save
+git clone git@github.com:dahui-sharon-kim/good-dayz-diary.git
 ```
 
 ## Development
