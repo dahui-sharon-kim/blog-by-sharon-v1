@@ -8,10 +8,16 @@ Good Dayz 일기장에서 나의 무드를 색깔로 표현해보세요.
 <img width="1000" alt="good-dayz-main" src="https://user-images.githubusercontent.com/102566849/219879829-ed85cf04-3867-4741-8f8c-ac97f52df63c.png">
 
 
-## Installation
+## 실행 방법
 
 ```
-git clone git@github.com:dahui-sharon-kim/good-dayz-diary.git
+$ npm install
+```
+
+클라이언트
+
+```
+$ npm run start
 ```
 
 ## Development
