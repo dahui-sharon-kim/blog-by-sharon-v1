@@ -20,6 +20,9 @@ $ npm install
 $ npm run start
 ```
 
+단, 현재 .env 파일을 업로드하지 않아 실행되지 않습니다. 배포를 기다려주세요.
+
+
 ## Development
 
 - Frontend
